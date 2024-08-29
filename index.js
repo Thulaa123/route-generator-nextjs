@@ -1,7 +1,10 @@
+#!/usr/bin/env node
+
 const fs = require('fs-extra');
 const path = require('path');
 const { program } = require('commander');
 
+// Parse command-line options
 program
   .requiredOption('-n, --name <name>', 'Name of the page')
   .requiredOption('-r, --route <route>', 'Route path')
@@ -12,53 +15,57 @@ program
 const options = program.opts();
 const { name, route, path: basePath, layout } = options;
 
-// Check if tsconfig.json exists to determine if it's a TypeScript project
+// Convert names to PascalCase
+const toPascalCase = str => str.replace(/\w+/g, w => w[0].toUpperCase() + w.slice(1).toLowerCase()).replace(/\s+/g, '');
+
+const pascalCaseName = toPascalCase(name);
+const pascalCaseLayout = layout ? toPascalCase(layout) : null;
+
 const isTypeScript = fs.existsSync(path.join(basePath, 'tsconfig.json'));
 
-// Convert name to kebab-case for Next.js file naming convention
-const fileName = `${name.toLowerCase().replace(/\s+/g, '-')}.${isTypeScript ? 'tsx' : 'jsx'}`;
+const pageFileName = `page.${isTypeScript ? 'tsx' : 'jsx'}`;
+const layoutFileName = `layout.${isTypeScript ? 'tsx' : 'jsx'}`;
 const routePath = path.join(basePath, route.replace(/^\//, '').replace(/\//g, path.sep));
 
-// Generate page content based on the detected type
+// Create the page component content
 const pageContent = isTypeScript
   ? `import React from 'react';
 
-const ${name}Page: React.FC = () => {
+const ${pascalCaseName}: React.FC = () => {
   return (
     <div>
-      <h1>${name} Page</h1>
+      <h1>${pascalCaseName}</h1>
     </div>
   );
 };
 
-export default ${name}Page;
+export default ${pascalCaseName};
 `
   : `import React from 'react';
 
-const ${name}Page = () => {
+const ${pascalCaseName} = () => {
   return (
     <div>
-      <h1>${name} Page</h1>
+      <h1>${pascalCaseName}</h1>
     </div>
   );
 };
 
-export default ${name}Page;
+export default ${pascalCaseName};
 `;
 
-// Write the page file
+// Ensure the directory exists and write the page component
 fs.ensureDirSync(routePath);
-fs.writeFileSync(path.join(routePath, fileName), pageContent);
+fs.writeFileSync(path.join(routePath, pageFileName), pageContent);
 
-// Optionally create a layout file if the layout option is provided
+// Create the layout file in the specified path, if provided
 if (layout) {
-  const layoutName = layout.toLowerCase().replace(/\s+/g, '-') + (isTypeScript ? '.tsx' : '.jsx');
-  const layoutPath = path.join(basePath, 'components', layoutName);
+  const layoutPath = path.join(routePath, layoutFileName);
 
   const layoutContent = isTypeScript
     ? `import React from 'react';
 
-const ${layout}: React.FC = ({ children }) => {
+const ${pascalCaseName}: React.FC = ({ children }) => {
   return (
     <div>
       <header>Header</header>
@@ -68,11 +75,11 @@ const ${layout}: React.FC = ({ children }) => {
   );
 };
 
-export default ${layout};
+export default ${pascalCaseName};
 `
     : `import React from 'react';
 
-const ${layout} = ({ children }) => {
+const ${pascalCaseName} = ({ children }) => {
   return (
     <div>
       <header>Header</header>
@@ -82,13 +89,12 @@ const ${layout} = ({ children }) => {
   );
 };
 
-export default ${layout};
+export default ${pascalCaseName};
 `;
 
-  fs.ensureDirSync(path.dirname(layoutPath));
   fs.writeFileSync(layoutPath, layoutContent);
-  
-  console.log(`✅ Layout created at ${layoutPath}`);
+
+  console.log(`Layout created at ${layoutPath}`);
 }
 
-console.log(`✅ Route created at ${path.join(routePath, fileName)}`);
+console.log(`Route created at ${path.join(routePath, pageFileName)}`);
