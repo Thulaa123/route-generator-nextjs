@@ -94,7 +94,7 @@ export default ${pascalCaseName};
 
   fs.writeFileSync(layoutPath, layoutContent);
 
-  console.log(`Layout created at ${layoutPath}`);
+  console.log(`✅ Layout created at ${layoutPath}`);
 }
 
-console.log(`Route created at ${path.join(routePath, pageFileName)}`);
+console.log(`✅ Route created at ${path.join(routePath, pageFileName)}`);
