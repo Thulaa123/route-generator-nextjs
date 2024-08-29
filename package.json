@@ -1,0 +1,19 @@
+{
+  "name": "route-generator-nextjs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "route-generator-nextjs": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Thulana Vinnath",
+  "license": "MIT",
+  "description": "A CLI tool to create routes and layouts in a Next.js app",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0"
+  }
+}
