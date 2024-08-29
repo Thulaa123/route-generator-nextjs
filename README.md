@@ -1,6 +1,6 @@
 # 🚀 Route Generator for Next.js
 
-Welcome to the **Route Generator for Next.js**! 🎉 This npm package makes it easy to create Next.js routes and components with a single command.
+Welcome to the **Route Generator for Next.js**! 🎉 This npm package makes it easy to create Next.js routes with a single command.
 
 ## 🔧 Installation
 
@@ -12,11 +12,11 @@ npm install route-generator-nextjs
 
 ## 📜 Usage
 
-After installation, you can use the generate-route script to quickly generate routes and components.
+After installation, you can use the generate-route script to quickly generate routes.
 
 ## Generating a Route
 
-Run the following command to create a new route and component:
+Run the following command to create a new route:
 
 ```
 npm run generate-route -- -n "Page Name" -r "/page-route" -p "path/to/folder" -l "LayoutName"
