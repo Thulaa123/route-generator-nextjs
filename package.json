@@ -1,16 +1,24 @@
 {
   "name": "route-generator-nextjs",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "main": "index.js",
   "bin": {
     "route-generator-nextjs": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node ./scripts/postinstall.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "nextjs",
+    "cli",
+    "generator",
+    "routes"
+  ],
   "author": "Thulana Vinnath",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thulaa123/route-generator-nextjs.git"
+  },
   "license": "MIT",
   "description": "A CLI tool to create routes and layouts in a Next.js app",
   "dependencies": {

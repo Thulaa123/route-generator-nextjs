@@ -7,7 +7,13 @@ Welcome to the **Route Generator for Next.js**! 🎉 This npm package makes it e
 To get started, install the package in your Next.js project:
 
 ```
-npm install route-generator-nextjs
+npm install --save-dev route-generator-nextjs
+```
+
+Next add the to your project ```scripts``` section on the ```package.json``` 
+
+```
+"generate-route": "route-generator-nextjs"
 ```
 
 ## 📜 Usage
