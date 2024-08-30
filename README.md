@@ -10,7 +10,7 @@ To get started, install the package in your Next.js project:
 npm install --save-dev route-generator-nextjs
 ```
 
-Next add the to your project ```scripts``` section on the ```package.json``` 
+Next add the command to your project ```scripts``` section on the ```package.json``` 
 
 ```
 "generate-route": "route-generator-nextjs"
